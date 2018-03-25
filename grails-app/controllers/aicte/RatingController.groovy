@@ -1,5 +1,6 @@
 package aicte
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
@@ -30,9 +31,11 @@ class RatingController {
             def parameters = request.getParameterMap()
             List<ParamValues> paramValues = new ArrayList<>()
             for(def entry: parameters){
+                if(!entry.getKey().equals("initiative")){
                 def paramValue = new ParamValues(name: entry.getKey(),value: entry.getValue()[0])
                 paramValue.rating = rating
                 paramValues.add(paramValue)
+                }
             }
             rating.parameters = paramValues
             ratingService.save(rating)
@@ -40,7 +43,7 @@ class RatingController {
             respond rating.errors, view:'create'
             return
         }
-
+        System.out.println(rating as JSON)
         respond rating, [status: CREATED, view:"show"]
     }
 
