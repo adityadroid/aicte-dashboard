@@ -1,0 +1,7 @@
+import aicte.Initiative
+
+model {
+	Initiative initiative
+}
+
+json tmpl.initiative(initiative)

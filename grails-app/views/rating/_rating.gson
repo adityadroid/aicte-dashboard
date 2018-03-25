@@ -1,0 +1,12 @@
+import aicte.Rating
+
+model {
+	Rating rating
+}
+
+json{
+	id rating.id
+	initiative rating.initiative
+	parameters rating.parameters
+
+}

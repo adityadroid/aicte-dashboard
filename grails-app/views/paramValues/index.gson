@@ -1,0 +1,8 @@
+import aicte.ParamValues
+
+model {
+	Iterable<ParamValues> paramValuesList
+}
+
+json tmpl.paramValues(paramValuesList ?: [])
+

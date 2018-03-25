@@ -1,0 +1,8 @@
+import aicte.Rating
+
+model {
+	Iterable<Rating> ratingList
+}
+
+json tmpl.rating(ratingList ?: [])
+

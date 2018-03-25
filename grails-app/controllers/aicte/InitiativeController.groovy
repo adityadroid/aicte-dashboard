@@ -4,52 +4,52 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
-class UserController {
+class InitiativeController {
 
-    UserService userService
+    InitiativeService initiativeService
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond userService.list(params), model:[userCount: userService.count()]
+        respond initiativeService.list(params), model:[initiativeCount: initiativeService.count()]
     }
 
     def show(Long id) {
-        respond userService.get(id)
+        respond initiativeService.get(id)
     }
 
-    def save(User user) {
-        if (user == null) {
+    def save(Initiative initiative) {
+        if (initiative == null) {
             render status: NOT_FOUND
             return
         }
 
         try {
-            userService.save(user)
+            initiativeService.save(initiative)
         } catch (ValidationException e) {
-            respond user.errors, view:'create'
+            respond initiative.errors, view:'create'
             return
         }
 
-        respond user, [status: CREATED, view:"show"]
+        respond initiative, [status: CREATED, view:"show"]
     }
 
-    def update(User user) {
-        if (user == null) {
+    def update(Initiative initiative) {
+        if (initiative == null) {
             render status: NOT_FOUND
             return
         }
 
         try {
-            userService.save(user)
+            initiativeService.save(initiative)
         } catch (ValidationException e) {
-            respond user.errors, view:'edit'
+            respond initiative.errors, view:'edit'
             return
         }
 
-        respond user, [status: OK, view:"show"]
+        respond initiative, [status: OK, view:"show"]
     }
 
     def delete(Long id) {
@@ -58,7 +58,7 @@ class UserController {
             return
         }
 
-        userService.delete(id)
+        initiativeService.delete(id)
 
         render status: NO_CONTENT
     }

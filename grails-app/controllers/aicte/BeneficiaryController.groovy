@@ -4,52 +4,52 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
-class UserController {
+class BeneficiaryController {
 
-    UserService userService
+    BeneficiaryService beneficiaryService
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond userService.list(params), model:[userCount: userService.count()]
+        respond beneficiaryService.list(params), model:[beneficiaryCount: beneficiaryService.count()]
     }
 
     def show(Long id) {
-        respond userService.get(id)
+        respond beneficiaryService.get(id)
     }
 
-    def save(User user) {
-        if (user == null) {
+    def save(Beneficiary beneficiary) {
+        if (beneficiary == null) {
             render status: NOT_FOUND
             return
         }
 
         try {
-            userService.save(user)
+            beneficiaryService.save(beneficiary)
         } catch (ValidationException e) {
-            respond user.errors, view:'create'
+            respond beneficiary.errors, view:'create'
             return
         }
 
-        respond user, [status: CREATED, view:"show"]
+        respond beneficiary, [status: CREATED, view:"show"]
     }
 
-    def update(User user) {
-        if (user == null) {
+    def update(Beneficiary beneficiary) {
+        if (beneficiary == null) {
             render status: NOT_FOUND
             return
         }
 
         try {
-            userService.save(user)
+            beneficiaryService.save(beneficiary)
         } catch (ValidationException e) {
-            respond user.errors, view:'edit'
+            respond beneficiary.errors, view:'edit'
             return
         }
 
-        respond user, [status: OK, view:"show"]
+        respond beneficiary, [status: OK, view:"show"]
     }
 
     def delete(Long id) {
@@ -58,7 +58,7 @@ class UserController {
             return
         }
 
-        userService.delete(id)
+        beneficiaryService.delete(id)
 
         render status: NO_CONTENT
     }

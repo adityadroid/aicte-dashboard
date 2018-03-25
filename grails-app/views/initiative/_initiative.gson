@@ -1,0 +1,12 @@
+import aicte.Initiative
+
+model {
+	Initiative initiative
+}
+
+json {
+	id initiative.id
+	ownerID initiative.owner.id
+	ownerName initiative.owner.name
+	parameters initiative.parameters
+}

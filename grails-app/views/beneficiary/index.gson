@@ -1,0 +1,8 @@
+import aicte.Beneficiary
+
+model {
+	Iterable<Beneficiary> beneficiaryList
+}
+
+json tmpl.beneficiary(beneficiaryList ?: [])
+

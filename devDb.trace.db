@@ -1,0 +1,6 @@
+2018-03-24 23:31:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "RATING" not found; SQL statement:
+SELECT * FROM RATING [42102-196]
+2018-03-24 23:31:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+SELECT * FROM USER [42102-196]
