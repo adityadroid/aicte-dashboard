@@ -8,6 +8,7 @@ json {
 	id initiative.id
 	ownerID initiative.owner.id
 	ownerName initiative.owner.name
+	name initiative.name
 	parameters tmpl.'../parameter/parameter'(initiative.parameters)
 
 }
