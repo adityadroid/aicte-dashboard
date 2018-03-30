@@ -18,6 +18,9 @@ class UrlMappings {
         "/initiative/$id/ratings/add"(controller: "rating", parseRequest: true) {
             action = [POST: "addRating"]
         }
+        "/initiative/$id/batch"(controller: "rating", parseRequest: true) {
+            action = [POST: "uploadFile"]
+        }
         "/"(controller: 'application', action:'index')
         "500"(view: '/error')
         "404"(view: '/notFound')

@@ -1,0 +1,8 @@
+import aicte.Initiative
+
+model {
+	Iterable<Initiative> initiativeList
+}
+
+json tmpl.initiative(initiativeList ?: [])
+

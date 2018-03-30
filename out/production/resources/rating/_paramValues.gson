@@ -1,0 +1,11 @@
+import aicte.ParamValues
+
+model {
+    ParamValues paramValues
+}
+
+json{
+    name paramValues.name
+    value paramValues.value
+}
+

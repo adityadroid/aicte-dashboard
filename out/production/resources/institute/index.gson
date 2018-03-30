@@ -1,0 +1,8 @@
+import aicte.Institute
+
+model {
+	Iterable<Institute> instituteList
+}
+
+json tmpl.institute(instituteList ?: [])
+

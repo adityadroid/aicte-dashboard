@@ -1,5 +1,4 @@
 // Added by the Spring Security Core plugin:
-grails.gorm.failOnError=true
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'aicte.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'aicte.UserAuthority'
 grails.plugin.springsecurity.authority.className = 'aicte.Authority'

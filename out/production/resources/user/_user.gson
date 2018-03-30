@@ -1,0 +1,13 @@
+import aicte.User
+
+model {
+	User user
+}
+
+json{
+	id user.id
+	username user.username
+	name user.name
+	email user.email
+	age user.age
+}

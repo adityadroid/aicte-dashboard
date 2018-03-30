@@ -1,0 +1,7 @@
+import aicte.Beneficiary
+
+model {
+	Beneficiary beneficiary
+}
+
+json tmpl.beneficiary(beneficiary)

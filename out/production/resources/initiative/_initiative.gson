@@ -1,0 +1,16 @@
+import aicte.Initiative
+import grails.converters.JSON
+
+model {
+	Initiative initiative
+}
+json {
+	id initiative.id
+	ownerID initiative.owner.id
+	ownerName initiative.owner.name
+	desc initiative.desc
+	name initiative.name
+	dateOfCreation initiative.date
+	parameters tmpl.'parameter'(initiative.parameters)
+
+}

@@ -86,7 +86,8 @@ class InitiativeController {
 
             for (Rating rating : initiative.ratings) {
                 for (ParamValues pm : rating.parameters) {
-                    map[pm.name] = map[pm.name] + Integer.valueOf(pm.value)
+                    println(pm.name+" "+pm.value)
+                    map[pm.name] = map[pm.name] + Double.valueOf(pm.value)
                 }
             }
 

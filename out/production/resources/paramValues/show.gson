@@ -1,0 +1,7 @@
+import aicte.ParamValues
+
+model {
+	ParamValues paramValues
+}
+
+json tmpl.paramValues(paramValues)

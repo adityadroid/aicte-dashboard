@@ -1,0 +1,7 @@
+import aicte.Institute
+
+model {
+	Institute institute
+}
+
+json g.render(institute, [resolveTemplate: false])

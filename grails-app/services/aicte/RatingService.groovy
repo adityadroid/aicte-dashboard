@@ -1,6 +1,7 @@
 package aicte
 
 import grails.gorm.services.Service
+import org.springframework.web.multipart.MultipartFile
 
 @Service(Rating)
 interface RatingService {
