@@ -9,7 +9,7 @@ class InitiativeController {
     InitiativeService initiativeService
 
     static responseFormats = ['json', 'xml']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE",getRating: "GET", show: "GET"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE",getRating: "GET", show: "GET",showPicture: "GET"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -21,11 +21,16 @@ class InitiativeController {
     }
 
     def save(Initiative initiative) {
+
         if (initiative == null) {
             render status: NOT_FOUND
             return
         }
-
+        def uploadedFile = request.getPart('picture')
+        if (uploadedFile != null) {//If File was defined/updated
+            initiative.picture = uploadedFile.inputStream.getBytes()
+            initiative.pictureContentType = uploadedFile.getContentType()
+        }
         try {
             initiativeService.save(initiative)
         } catch (ValidationException e) {
@@ -52,6 +57,10 @@ class InitiativeController {
         respond initiative, [status: OK, view:"show"]
     }
 
+    def showPicture(Initiative initiative) {
+        response.outputStream << initiative.picture
+        response.outputStream.flush()
+    }
     def delete(Long id) {
         if (id == null) {
             render status: NOT_FOUND

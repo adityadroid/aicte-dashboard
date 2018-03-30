@@ -12,6 +12,9 @@ class UrlMappings {
         "/initiative/$id/ratings/"(controller: "initiative", parseRequest: true) {
             action = [GET: "getRating"]
         }
+        "/initiative/$id/picture/"(controller: "initiative", parseRequest: true) {
+            action = [GET: "showPicture"]
+        }
         "/initiative/$id/ratings/add"(controller: "rating", parseRequest: true) {
             action = [POST: "addRating"]
         }

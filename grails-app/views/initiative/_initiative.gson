@@ -9,6 +9,7 @@ json {
 	ownerID initiative.owner.id
 	ownerName initiative.owner.name
 	name initiative.name
+	dateOfCreation initiative.date
 	parameters tmpl.'parameter'(initiative.parameters)
 
 }
