@@ -68,20 +68,28 @@ class InitiativeController {
             render status: NOT_FOUND
         return
     }
-        def params = initiative.parameters
-        def map = new HashMap<String, Integer>()
-        for(Parameter parameter:params){
-            map[parameter.name] = 0
+        try {
+            def params = initiative.parameters
+            def map = new HashMap<String, Integer>()
+            for (Parameter parameter : params) {
+                map[parameter.name] = 0
+            }
+
+            for (Rating rating : initiative.ratings) {
+                for (ParamValues pm : rating.parameters) {
+                    map[pm.name] = map[pm.name] + Integer.valueOf(pm.value)
+                }
+            }
+            for (Parameter parameter : params) {
+                map[parameter.name] = map[parameter.name] / initiative.ratings.size()
+            }
+            respond(summary: map, ratings: initiative.ratings, status: OK)
+        }catch(NumberFormatException e){
+            respond(status: INTERNAL_SERVER_ERROR)
+        }catch(ArithmeticException e1){
+            respond(status: INTERNAL_SERVER_ERROR)
         }
 
-        for(Rating rating: initiative.ratings){
-            for(ParamValues pm:rating.parameters){
-                map[pm.name] = map[pm.name]+ Integer.valueOf(pm.value)
-            }
-        }
-        for(Parameter parameter:params){
-            map[parameter.name] = map[parameter.name]/initiative.ratings.size()
-        }
-        respond(summary:map,ratings:initiative.ratings,status: OK)
+
     }
 }

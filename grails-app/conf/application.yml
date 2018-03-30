@@ -1,5 +1,10 @@
 ---
 grails:
+    cors:
+        enabled: true
+        allowedOrigins:
+            - http://localhost:3000
+            - http://localhost:8080
     profile: rest-api
     codegen:
         defaultPackage: aicte

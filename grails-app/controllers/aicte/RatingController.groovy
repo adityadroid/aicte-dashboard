@@ -10,7 +10,7 @@ class RatingController {
     RatingService ratingService
 
     static responseFormats = ['json', 'xml']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", addRating: "POST"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -62,6 +62,31 @@ class RatingController {
 
         respond rating, [status: OK, view:"show"]
     }
+
+    def addRating(Long id){
+        def initiative = Initiative.findById(id)
+        def beneficiaryName = request.getParameter("beneficiaryName")
+        def beneficiaryEmail = request.getParameter("beneficiaryEmail")
+        def instituteId = Integer.parseInt(request.getParameter("institute"))
+        def institute = Institute.findById(instituteId)
+        def beneficiary = new Beneficiary(name: beneficiaryName,email: beneficiaryEmail,institute: institute,initiative: initiative)
+        Rating rating = new Rating()
+        List<ParamValues> paramValues = new ArrayList<>()
+        for (Parameter par: initiative.parameters){
+            def paramValue = new ParamValues(name: par.name,value: request.getParameter(par.name))
+            paramValue.rating = rating
+            paramValues.add(paramValue)
+            }
+        rating.parameters = paramValues
+        rating.initiative = initiative
+        initiative.ratings.add(rating)
+        beneficiary.rating = rating
+        rating.beneficiary = beneficiary
+        initiative.save(true)
+        respond(response:[message:"Rating created"],status: OK)
+
+    }
+
 
     def delete(Long id) {
         if (id == null) {

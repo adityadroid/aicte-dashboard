@@ -1,0 +1,13 @@
+import aicte.Beneficiary
+
+model {
+	Beneficiary beneficiary
+}
+
+json{
+	id beneficiary.id
+	name beneficiary.name
+	email beneficiary.email
+	initiative beneficiary.initiative.id
+
+}

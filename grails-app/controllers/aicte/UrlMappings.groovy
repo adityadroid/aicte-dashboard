@@ -9,8 +9,11 @@ class UrlMappings {
         post "/$controller(.$format)?"(action:"save")
         put "/$controller/$id(.$format)?"(action:"update")
         patch "/$controller/$id(.$format)?"(action:"patch")
-        "/initiative/ratings/$id"(controller: "initiative", parseRequest: true) {
+        "/initiative/$id/ratings/"(controller: "initiative", parseRequest: true) {
             action = [GET: "getRating"]
+        }
+        "/initiative/$id/ratings/add"(controller: "rating", parseRequest: true) {
+            action = [POST: "addRating"]
         }
         "/"(controller: 'application', action:'index')
         "500"(view: '/error')
