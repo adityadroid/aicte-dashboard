@@ -37,6 +37,15 @@ class BootStrap {
         def userRole =new Authority(authority:"ROLE_USER").save(true)
         def initUser = new User(username:"user",password: "pwd",name: "name",age: 19,email: "test@gmail.com").save(true)
         UserAuthority.create(initUser,userRole)
+        new Institute(name: "JECRC1",email: "jecrc1@aicte.org").save(true)
+        new Institute(name: "JECRC2",email: "jecrc2@aicte.org").save(true)
+        new Institute(name: "JECRC3",email: "jecrc3@aicte.org").save(true)
+        new Institute(name: "JECRC4",email: "jecrc4@aicte.org").save(true)
+        new Institute(name: "JECRC5",email: "jecrc5@aicte.org").save(true)
+        new Institute(name: "JECRC6",email: "jecrc6@aicte.org").save(true)
+        new Institute(name: "JECRC7",email: "jecrc7@aicte.org").save(true)
+        new Institute(name: "JECRC8",email: "jecrc8@aicte.org").save(true)
+
 
     }
     def destroy = {

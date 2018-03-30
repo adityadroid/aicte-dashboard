@@ -62,4 +62,16 @@ class InitiativeController {
 
         render status: NO_CONTENT
     }
+    def getRating(Long id){
+        def initiative = initiativeService.get(id)
+        if(initiative==null){
+            render status: NOT_FOUND
+        return
+    }
+
+
+        for(Rating rating: initiative.ratings){
+        }
+
+    }
 }
