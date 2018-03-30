@@ -89,8 +89,11 @@ class InitiativeController {
                     map[pm.name] = map[pm.name] + Integer.valueOf(pm.value)
                 }
             }
+
             for (Parameter parameter : params) {
+                if(initiative.ratings.size()!=0)
                 map[parameter.name] = map[parameter.name] / initiative.ratings.size()
+
             }
             respond(summary: map, ratings: initiative.ratings, status: OK)
         }catch(NumberFormatException e){
