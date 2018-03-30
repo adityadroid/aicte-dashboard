@@ -1,7 +1,10 @@
 package aicte
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
+import org.springframework.http.HttpStatus
+
 import static org.springframework.http.HttpStatus.*
 @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 class ParameterController {
@@ -25,7 +28,15 @@ class ParameterController {
             render status: NOT_FOUND
             return
         }
+        def initiative = parameter.initiative
+        def parameters = initiative.parameters
+        for(Parameter par:parameters){
+            if(par.name.equals(parameter.name)){
+                render([message:"parameter ${parameter.name} already exists!"] as JSON,status: BAD_REQUEST)
+                return
+            }
 
+        }
         try {
             parameterService.save(parameter)
         } catch (ValidationException e) {

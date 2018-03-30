@@ -7,6 +7,7 @@ model {
 json{
 	id beneficiary.id
 	name beneficiary.name
-	initiative beneficiary.initiative
+	email beneficiary.email
+	initiative beneficiary.initiative.id
 
 }

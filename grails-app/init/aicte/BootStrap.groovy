@@ -34,9 +34,12 @@ class BootStrap {
 //            output['id'] = it.id
 //            return output
 //        }
-        def userRole =new Authority(authority:"ROLE_USER").save(true)
-        def initUser = new User(username:"user",password: "pwd",name: "name",age: 19,email: "test@gmail.com").save(true)
-        UserAuthority.create(initUser,userRole)
+        def aicteRole =new Authority(authority:"ROLE_AICTE").save(true)
+        def spocRole = new Authority(authority: "ROLE_SPOC").save(true)
+        def initAdmin = new User(username:"aicte",password: "pwd",name: "aicte",age: 19,email: "aicte@gmail.com").save(true)
+        def initSpoc = new User(username:"spoc",password: "pwd",name: "spoc",age: 19,email: "spoc@gmail.com").save(true)
+        UserAuthority.create(initAdmin,aicteRole)
+        UserAuthority.create(initSpoc,spocRole)
         new Institute(name: "JECRC1",email: "jecrc1@aicte.org").save(true)
         new Institute(name: "JECRC2",email: "jecrc2@aicte.org").save(true)
         new Institute(name: "JECRC3",email: "jecrc3@aicte.org").save(true)
