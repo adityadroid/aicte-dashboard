@@ -9,7 +9,7 @@ class InitiativeController {
     InitiativeService initiativeService
 
     static responseFormats = ['json', 'xml']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE",getRating: "GET", show: "GET"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -68,10 +68,20 @@ class InitiativeController {
             render status: NOT_FOUND
         return
     }
-
-
-        for(Rating rating: initiative.ratings){
+        def params = initiative.parameters
+        def map = new HashMap<String, Integer>()
+        for(Parameter parameter:params){
+            map[parameter.name] = 0
         }
 
+        for(Rating rating: initiative.ratings){
+            for(ParamValues pm:rating.parameters){
+                map[pm.name] = map[pm.name]+ Integer.valueOf(pm.value)
+            }
+        }
+        for(Parameter parameter:params){
+            map[parameter.name] = map[parameter.name]/initiative.ratings.size()
+        }
+        respond(summary:map,ratings:initiative.ratings,status: OK)
     }
 }
