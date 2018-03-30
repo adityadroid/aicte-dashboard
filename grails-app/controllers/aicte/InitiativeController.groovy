@@ -94,8 +94,10 @@ class InitiativeController {
             }
             respond(summary: map, ratings: initiative.ratings, status: OK)
         }catch(NumberFormatException e){
+            e.printStackTrace()
             respond(status: INTERNAL_SERVER_ERROR)
         }catch(ArithmeticException e1){
+            e1.printStackTrace()
             respond(status: INTERNAL_SERVER_ERROR)
         }
 

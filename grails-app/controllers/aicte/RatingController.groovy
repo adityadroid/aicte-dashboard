@@ -83,6 +83,8 @@ class RatingController {
         beneficiary.rating = rating
         rating.beneficiary = beneficiary
         initiative.save(true)
+        rating.save(true)
+        beneficiary.save(true)
         respond(response:[message:"Rating created"],status: OK)
 
     }
