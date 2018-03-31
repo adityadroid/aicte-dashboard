@@ -9,7 +9,7 @@ class InitiativeController {
     InitiativeService initiativeService
 
     static responseFormats = ['json', 'xml']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE",getRating: "GET", show: "GET"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE",getRating: "GET", show: "GET",listBeneficiaries: "GET",listInstitutes: "GET"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -61,6 +61,26 @@ class InitiativeController {
 //        response.outputStream << initiative.picture
 //        response.outputStream.flush()
 //    }
+
+    def listBeneficiaries(Long id){
+        def initiative = initiativeService.get(id)
+        def beneficiaries = Beneficiary.findByInitiative(initiative)
+        respond(beneficiaries,status: OK)
+
+    }
+    def listInstitutes(Long id){
+        def initiative = initiativeService.get(id)
+        def beneficiaries = Beneficiary.findAllByInitiative(initiative)
+        def institutes = []
+        for(Beneficiary beneficiary:beneficiaries){
+            println(beneficiary.email)
+            if(!institutes.contains(beneficiary.institute))
+                institutes.add(beneficiary.institute)
+        }
+        respond(institutes,status: OK)
+        }
+
+
     def delete(Long id) {
         if (id == null) {
             render status: NOT_FOUND
