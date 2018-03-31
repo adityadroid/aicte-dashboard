@@ -64,7 +64,7 @@ class InitiativeController {
 
     def listBeneficiaries(Long id){
         def initiative = initiativeService.get(id)
-        def beneficiaries = Beneficiary.findByInitiative(initiative)
+        def beneficiaries = Beneficiary.findAllByInitiative(initiative)
         respond(beneficiaries,status: OK)
 
     }
