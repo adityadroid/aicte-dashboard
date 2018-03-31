@@ -9,5 +9,5 @@ json{
 	name beneficiary.name
 	email beneficiary.email
 	initiative beneficiary.initiative.id
-
+	institute beneficiary.institute.name
 }
