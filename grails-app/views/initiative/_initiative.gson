@@ -11,6 +11,7 @@ json {
 	desc initiative.desc
 	name initiative.name
 	dateOfCreation initiative.date
+	standard initiative.standard
 	parameters tmpl.'parameter'(initiative.parameters)
 
 }

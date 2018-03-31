@@ -61,4 +61,5 @@ class InstituteController {
 
         render status: NO_CONTENT
     }
+
 }

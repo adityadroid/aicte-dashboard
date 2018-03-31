@@ -15,4 +15,14 @@ class UtilityService {
         fos.close()
         return convFile
     }
+    def getAvg(Rating rating){
+        def num = 0
+        for(ParamValues paramValues:rating.parameters){
+            num = num + Double.parseDouble(paramValues.value)
+        }
+        if(rating.parameters.size()!=0)
+        num = num/rating.parameters.size()
+
+        return num
+    }
 }

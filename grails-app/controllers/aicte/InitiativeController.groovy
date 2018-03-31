@@ -7,9 +7,9 @@ import static org.springframework.http.HttpStatus.*
 class InitiativeController {
 
     InitiativeService initiativeService
-
+    UtilityService utilityService
     static responseFormats = ['json', 'xml']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE",getRating: "GET", show: "GET",listBeneficiaries: "GET",listInstitutes: "GET"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE",getRating: "GET", show: "GET",listBeneficiaries: "GET",listInstitutes: "GET",generateReport: "GET"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -125,6 +125,59 @@ class InitiativeController {
             respond(status: INTERNAL_SERVER_ERROR)
         }
 
+
+    }
+
+    def generateReport(Long id){
+        def initiative = initiativeService.get(id)
+        def beneficiaries = Beneficiary.findAllByInitiative(initiative)
+        println(beneficiaries.size())
+        def institutes = []
+        for(Beneficiary beneficiary:beneficiaries){
+            println(beneficiary.email)
+            if(!institutes.contains(beneficiary.institute))
+                institutes.add(beneficiary.institute)
+        }
+        println(institutes.size())
+        def map = [:]
+        def standard = initiative.standard
+        map.standard = standard
+        def resultInstitutes= []
+        for(Institute institute:institutes){
+            def instituteBeneficiaries = Beneficiary.findAllByInstitute(institute)
+            def quantityNum = instituteBeneficiaries.size()
+            def qualityNum = 0
+            for(Beneficiary ben: instituteBeneficiaries){
+                qualityNum = qualityNum + utilityService.getAvg(ben.rating)
+            }
+            if(instituteBeneficiaries.size()!=0)
+            qualityNum = qualityNum/instituteBeneficiaries.size()
+            def nestedMap = [:]
+            nestedMap.name = institute.name
+            nestedMap.qualityNum = qualityNum
+            nestedMap.quantityNum = quantityNum
+            def quantityIndicator
+            if((quantityNum*100)/standard>75)
+                quantityIndicator=2
+            else if((quantityNum*100)/standard>50)
+                quantityIndicator=1
+            else
+                quantityIndicator =0
+
+            def qualityIndicator
+            if(qualityNum>3.75)
+                qualityIndicator=2
+            else if(qualityNum>2.5)
+                qualityIndicator=1
+                else
+                qualityIndicator=0
+            nestedMap.qualityIndicator = qualityIndicator
+            nestedMap.quantityIndicator = quantityIndicator
+         resultInstitutes.add(nestedMap)
+        }
+        map.institutes = resultInstitutes
+
+        respond(map, status: OK)
 
     }
 }
